@@ -53,9 +53,8 @@ public class BasicDocument extends Document
 	@Override
 	public int getNumSentences()
 	{
-	    //TODO: Implement this method.  See the Module 2 support videos 
-        // if you need help.
-        return 0;
+	    String[] sentences = text.split("[.!?]");
+            return sentences.length;
 	}
 	
 	/**
