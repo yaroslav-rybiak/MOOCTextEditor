@@ -12,17 +12,15 @@ import java.util.List;
  */
 public class EfficientDocument extends Document {
 
-    private int numWords;  // The number of words in the document
-    private int numSentences;  // The number of sentences in the document
-    private int numSyllables;  // The number of syllables in the document
+    private int numWords;
+    private int numSentences;
+    private int numSyllables;
 
     public EfficientDocument(String text) {
         super(text);
         processText();
     }
 
-    // Can be used for testing
-    // We encourage you to add your own tests here.
     public static void main(String[] args) {
         testCase(new EfficientDocument("This is a test.  How many???  "
                         + "Senteeeeeeeeeences are here... there should be 5!  Right?"),
@@ -53,8 +51,6 @@ public class EfficientDocument extends Document {
      * @return true if tok is a word, false if it is punctuation.
      */
     private boolean isWord(String tok) {
-        // Note: This is a fast way of checking whether a string is a word
-        // You probably don't want to change it.
         return !(tok.indexOf("!") >= 0 || tok.indexOf(".") >= 0 || tok.indexOf("?") >= 0);
     }
 
@@ -64,15 +60,8 @@ public class EfficientDocument extends Document {
      * Words, sentences and syllables are defined as described below.
      */
     private void processText() {
-        // Call getTokens on the text to preserve separate strings that are
-        // either words or sentence-ending punctuation.  Ignore everything
-        // That is not a word or a sentence-ending puctuation.
-        // MAKE SURE YOU UNDERSTAND THIS LINE BEFORE YOU CODE THE REST
-        // OF THIS METHOD.
-        List<String> tokens = getTokens("[!?.]+|[a-zA-Z]+");
 
-        // TODO: Finish this method.  Remember the countSyllables method from
-        // Document.  That will come in handy here.  isWord defined above will also help.
+        List<String> tokens = getTokens("[!?.]+|[a-zA-Z]+");
         List<String> words = new ArrayList<>();
         List<StringBuilder> sentences = new ArrayList<>();
         for (int i = 0, k = 0; i < tokens.size(); i++) {
@@ -95,13 +84,6 @@ public class EfficientDocument extends Document {
     }
 
     /**
-     * Get the number of sentences in the document.
-     * Sentences are defined as contiguous strings of characters ending in an
-     * end of sentence punctuation (. ! or ?) or the last contiguous set of
-     * characters in the document, even if they don't end with a punctuation mark.
-     * <p>
-     * Check the examples in the main method below for more information.
-     * <p>
      * This method does NOT process the whole text each time it is called.
      * It returns information already stored in the EfficientDocument object.
      *
@@ -113,14 +95,6 @@ public class EfficientDocument extends Document {
     }
 
     /**
-     * Get the number of words in the document.
-     * A "word" is defined as a contiguous string of alphabetic characters
-     * i.e. any upper or lower case characters a-z or A-Z.  This method completely
-     * ignores numbers when you count words, and assumes that the document does not have
-     * any strings that combine numbers and letters.
-     * <p>
-     * Check the examples in the main method below for more information.
-     * <p>
      * This method does NOT process the whole text each time it is called.
      * It returns information already stored in the EfficientDocument object.
      *
@@ -132,15 +106,6 @@ public class EfficientDocument extends Document {
     }
 
     /**
-     * Get the total number of syllables in the document (the stored text).
-     * To calculate the the number of syllables in a word, it uses the following rules:
-     * Each contiguous sequence of one or more vowels is a syllable,
-     * with the following exception: a lone "e" at the end of a word
-     * is not considered a syllable unless the word has no other syllables.
-     * You should consider y a vowel.
-     * <p>
-     * Check the examples in the main method below for more information.
-     * <p>
      * This method does NOT process the whole text each time it is called.
      * It returns information already stored in the EfficientDocument object.
      *
@@ -150,6 +115,4 @@ public class EfficientDocument extends Document {
     public int getNumSyllables() {
         return numSyllables;
     }
-
-
 }
