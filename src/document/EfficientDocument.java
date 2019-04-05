@@ -51,7 +51,7 @@ public class EfficientDocument extends Document {
      * @return true if tok is a word, false if it is punctuation.
      */
     private boolean isWord(String tok) {
-        return !(tok.indexOf("!") >= 0 || tok.indexOf(".") >= 0 || tok.indexOf("?") >= 0);
+        return !(tok.contains("!") || tok.contains(".") || tok.contains("?"));
     }
 
     /**
@@ -71,7 +71,7 @@ public class EfficientDocument extends Document {
                 if (sentences.size() <= k) {
                     sentences.add(k, new StringBuilder());
                 }
-                sentences.get(k).append(tokens.get(i) + " ");
+                sentences.get(k).append(tokens.get(i)).append(" ");
             } else {
                 if (sentences.size() <= k) {
                     sentences.add(k, new StringBuilder());
