@@ -78,6 +78,7 @@ public class EfficientDocument extends Document {
         for (int i = 0, k = 0; i < tokens.size(); i++) {
             if (isWord(tokens.get(i))) {
                 words.add(tokens.get(i));
+                numSyllables += countSyllables(tokens.get(i));
                 if (sentences.size() <= k) {
                     sentences.add(k, new StringBuilder());
                 }
@@ -91,11 +92,6 @@ public class EfficientDocument extends Document {
         }
         numWords = words.size();
         numSentences = sentences.size();
-        for (String word : words) {
-            numSyllables += countSyllables(word);
-        }
-
-
     }
 
     /**
