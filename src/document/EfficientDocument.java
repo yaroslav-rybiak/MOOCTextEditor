@@ -62,11 +62,10 @@ public class EfficientDocument extends Document {
     private void processText() {
 
         List<String> tokens = getTokens("[!?.]+|[a-zA-Z]+");
-        List<String> words = new ArrayList<>();
         List<StringBuilder> sentences = new ArrayList<>();
         for (int i = 0, k = 0; i < tokens.size(); i++) {
             if (isWord(tokens.get(i))) {
-                words.add(tokens.get(i));
+                numWords++;
                 numSyllables += countSyllables(tokens.get(i));
                 if (sentences.size() <= k) {
                     sentences.add(k, new StringBuilder());
@@ -79,7 +78,6 @@ public class EfficientDocument extends Document {
                 k++;
             }
         }
-        numWords = words.size();
         numSentences = sentences.size();
     }
 
