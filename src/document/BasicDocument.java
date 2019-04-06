@@ -1,5 +1,7 @@
 package document;
 
+import java.util.List;
+
 /**
  * A naive implementation of the Document abstract class.
  *
@@ -15,15 +17,7 @@ public class BasicDocument extends Document {
         super(text);
     }
 
-    /* The main method for testing this class.
-     * You are encouraged to add your own tests.  */
     public static void main(String[] args) {
-        /* Each of the test cases below uses the method testCase.  The first
-         * argument to testCase is a Document object, created with the string shown.
-         * The next three arguments are the number of syllables, words and sentences
-         * in the string, respectively.  You can use these examples to help clarify
-         * your understanding of how to count syllables, words, and sentences.
-         */
         testCase(new BasicDocument("This is a test.  How many???  "
                         + "Senteeeeeeeeeences are here... there should be 5!  Right?"),
                 16, 13, 5);
@@ -48,9 +42,6 @@ public class BasicDocument extends Document {
      * i.e. any upper or lower case characters a-z or A-Z.  This method completely
      * ignores numbers when you count words, and assumes that the document does not have
      * any strings that combine numbers and letters.
-     * <p>
-     * Check the examples in the main method below for more information.
-     * <p>
      * This method should process the entire text string each time it is called.
      *
      * @return The number of words in the document.
@@ -67,9 +58,6 @@ public class BasicDocument extends Document {
      * Sentences are defined as contiguous strings of characters ending in an
      * end of sentence punctuation (. ! or ?) or the last contiguous set of
      * characters in the document, even if they don't end with a punctuation mark.
-     * <p>
-     * Check the examples in the main method below for more information.
-     * <p>
      * This method should process the entire text string each time it is called.
      *
      * @return The number of sentences in the document.
@@ -88,21 +76,16 @@ public class BasicDocument extends Document {
      * with the following exception: a lone "e" at the end of a word
      * is not considered a syllable unless the word has no other syllables.
      * You should consider y a vowel.
-     * <p>
-     * Check the examples in the main method below for more information.
-     * <p>
      * This method should process the entire text string each time it is called.
      *
      * @return The number of syllables in the document.
      */
     @Override
-    public int getNumSyllables() {
-        int number = 0;
-        String[] words = getText().split("[().,!? 1-9:]+");
-        for (String word : words) {
-            number += countSyllables(word);
-        }
-        return number;
+    public int getNumSyllables()
+    {
+		List<String> tokens = getTokens("[aeiouyAEIOUY]+");
+		List<String> loneEs = getTokens("[^aeiouyAEIOUY]+[eE]\\b");
+		List<String> singleEs = getTokens("\\b[^aeiouyAEIOUY]*[eE]\\b");
+		return tokens.size() - (loneEs.size() - singleEs.size());
     }
-
 }

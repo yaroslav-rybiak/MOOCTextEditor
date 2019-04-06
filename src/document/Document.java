@@ -90,16 +90,6 @@ public abstract class Document {
      * This is a helper function that returns the number of syllables
      * in a word.  You should write this and use it in your
      * BasicDocument class.
-     * <p>
-     * You will probably NOT need to add a countWords or a countSentences
-     * method here.  The reason we put countSyllables here because we'll
-     * use it again next week when we implement the EfficientDocument class.
-     * <p>
-     * For reasons of efficiency you should not create Matcher or Pattern
-     * objects inside this method. Just use a loop to loop through the
-     * characters in the string and write your own logic for counting
-     * syllables.
-     *
      * @param word The word to count the syllables in
      * @return The number of syllables in the given word, according to
      * this rule: Each contiguous sequence of one or more vowels is a syllable,
@@ -107,14 +97,27 @@ public abstract class Document {
      * is not considered a syllable unless the word has no other syllables.
      * You should consider y a vowel.
      */
-    protected int countSyllables(String word) {
-        if (word.isEmpty()) return 0;
-        word = word.toLowerCase();
-        word = word.replaceAll("e$", ""); //remove last e, if any
-        word = word.replaceAll("[aeiouy]+", "*"); //change all consecutive vowels to *
-        word = word.replaceAll("[bcdfghjklmnpqrstvwxz]", ""); //remove all consonants
-        if (word.isEmpty()) return 1; //assuming that the only vowel was that 'e' at the end of the word
-        return word.length();
+    protected static int countSyllables(String word)
+    {
+        int numSyllables = 0;
+        boolean newSyllable = true;
+        String vowels = "aeiouy";
+        char[] cArray = word.toCharArray();
+        for (int i = 0; i < cArray.length; i++)
+        {
+            if (i == cArray.length-1 && Character.toLowerCase(cArray[i]) == 'e'
+                    && newSyllable && numSyllables > 0) {
+                numSyllables--;
+            }
+            if (newSyllable && vowels.indexOf(Character.toLowerCase(cArray[i])) >= 0) {
+                newSyllable = false;
+                numSyllables++;
+            }
+            else if (vowels.indexOf(Character.toLowerCase(cArray[i])) < 0) {
+                newSyllable = true;
+            }
+        }
+        return numSyllables;
     }
 
     /**
