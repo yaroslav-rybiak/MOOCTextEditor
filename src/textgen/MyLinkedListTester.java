@@ -175,7 +175,7 @@ public class MyLinkedListTester {
         }
         // test short list
         try {
-            shortList.add(2, "C");
+            shortList.add(3, "C");
             fail("Check out of bounds");
         } catch (IndexOutOfBoundsException e) {
         }
