@@ -60,7 +60,6 @@ public class NearbyWords implements SpellingSuggest {
      * @param s           The original String
      * @param currentList is the list of words to append modified words
      * @param wordsOnly   controls whether to return only words or any String
-     * @return
      */
     public void substitution(String s, List<String> currentList, boolean wordsOnly) {
         // for each letter in the s and for all possible replacement characters
@@ -89,7 +88,6 @@ public class NearbyWords implements SpellingSuggest {
      * @param s           The original String
      * @param currentList is the list of words to append modified words
      * @param wordsOnly   controls whether to return only words or any String
-     * @return
      */
     public void insertions(String s, List<String> currentList, boolean wordsOnly) {
         //for each position in the word
@@ -121,7 +119,6 @@ public class NearbyWords implements SpellingSuggest {
      * @param s           The original String
      * @param currentList is the list of words to append modified words
      * @param wordsOnly   controls whether to return only words or any String
-     * @return
      */
     public void deletions(String s, List<String> currentList, boolean wordsOnly) {
         //for each letter in the word
