@@ -1,7 +1,9 @@
 package spelling;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 /**
  * WPTree implements WordPath by dynamically creating a tree of words during a Breadth First
@@ -31,9 +33,56 @@ public class WPTree implements WordPath {
         this.nw = nw;
     }
 
-    // see method description in WordPath interface
     public List<String> findPath(String word1, String word2) {
-        // TODO: Implement this method.
+        // Create a queue of WPTreeNodes to hold words to explore
+        Queue<WPTreeNode> wpq = new LinkedList<>();
+
+        // Create a visited set to avoid looking at the same word repeatedly
+        HashSet<String> visited = new HashSet<>();
+
+        // Set the root to be a WPTreeNode containing word1
+        root = new WPTreeNode(word1, null);
+
+        // Add the initial word to visited
+        visited.add(word1);
+
+        // Add root to the queue
+        wpq.add(root);
+
+        // while the queue has elements and we have not yet found word2
+        while (!wpq.isEmpty()) {
+
+            // remove the node from the start of the queue and assign to curr
+            WPTreeNode curr = wpq.remove();
+
+            // get a list of real word neighbors (one mutation from curr's word)
+            List<String> neighbors = nw.distanceOne(curr.getWord(), true);
+
+            // for each n in the list of neighbors
+            for (String n : neighbors) {
+
+                // if n is not visited
+                if (!visited.contains(n)) {
+
+                    // add n as a child of curr
+                    WPTreeNode wpTreeNode = curr.addChild(n);
+
+                    // add n to the visited set
+                    visited.add(n);
+
+                    // add the node for n to the back of the queue
+                    wpq.add(wpTreeNode);
+
+                    // if n is word2
+                    if (n.equals(word2))
+
+                        // return the path from child to root
+                        return wpTreeNode.buildPathToRoot();
+                }
+            }
+        }
+
+        // return null as no path exists
         return new LinkedList<>();
     }
 
@@ -148,14 +197,6 @@ class WPTreeNode {
         ret += (" ]\n");
 //        sb.append(" ]\n");
         return ret;
-    }
-
-    public static void main(String[] args) {
-        WPTreeNode one = new WPTreeNode("a", null);
-        WPTreeNode two = new WPTreeNode("b1", one);
-        WPTreeNode thr = new WPTreeNode("b2", one);
-        WPTreeNode fou = new WPTreeNode("c", two);
-        System.out.println(two);
     }
 
 }
